@@ -1,0 +1,18 @@
+User -> run_med_mon.sh: Run container
+run_med_mon.sh -> Docker: Launch med_mon container
+Docker -> entrypoint.sh: Init environment and ROS workspace
+entrypoint.sh -> ROS_Launch: Execute med_mon.launch
+ROS_Launch -> ekg.py: Start EKG publisher node
+ROS_Launch -> medical_sensor.py: Start vitals publisher node
+ROS_Launch -> medical_gui.py: Start PyQt5 GUI node
+
+ekg.py -> /ekg (ROS Topic): Publish ekg voltage
+medical_sensor.py -> /heart_rate: Publish heart rate
+medical_sensor.py -> /blood_pressure: Publish blood pressure
+
+medical_gui.py -> /ekg: Subscribe to EKG data
+medical_gui.py -> /heart_rate: Subscribe to heart rate
+medical_gui.py -> /blood_pressure: Subscribe to BP
+
+medical_gui.py -> medical_gui.qml: Bind data to GUI display
+medical_gui.qml -> User: Display heart rate, BP, and live EKG waveform
