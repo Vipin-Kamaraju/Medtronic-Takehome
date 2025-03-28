@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 RUN pip install sip
 
 COPY ./requirements.txt /setup
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./entrypoint.sh /setup
 RUN chmod +x /setup/entrypoint.sh
